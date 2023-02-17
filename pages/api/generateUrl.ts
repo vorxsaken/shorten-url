@@ -6,27 +6,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const { url, user } = req.body;
 
-    const alphabeticAndNumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const pattern: RegExp = /^([https?:\/\/]+)?(w{3}.)?[\w+]+\.[\w+]+[\w+\W?]?/;
 
-    let randomCode = '';
-    for (let i = 0; i < 6; i++) {
-        randomCode += alphabeticAndNumeric.charAt(Math.ceil(Math.random() * alphabeticAndNumeric.length));
+    if (pattern.test(url)) {
+        const alphabeticAndNumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+        let randomCode = '';
+        for (let i = 0; i < 6; i++) {
+            randomCode += alphabeticAndNumeric.charAt(Math.ceil(Math.random() * alphabeticAndNumeric.length));
+        }
+
+        try {
+            const shorten = await prisma.shorten.create({
+                data: {
+                    user: user ?? '',
+                    url: url,
+                    alias: randomCode,
+
+                }
+            })
+            return res.status(200).send(shorten);
+        } catch (err) {
+            return res.status(500).send(err);
+        }
     }
 
-    try {
-        const shorten = await prisma.shorten.create({
-            data: {
-                user: user ?? '',
-                url: url,
-                alias: randomCode,
-
-            }
-        })
-        res.status(200).send(shorten);
-    } catch (err) {
-        res.status(500).send(err);
-    }
-
-    res.status(200).send({ message: 'url' })
+    res.status(200).send({ message: 'not url !!!' });
 
 }
