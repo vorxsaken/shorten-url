@@ -31,6 +31,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
     }
 
-    res.status(200).send({ message: 'not url !!!' });
+    res.status(400).send({ message: 'not url !!!' });
 
 }
