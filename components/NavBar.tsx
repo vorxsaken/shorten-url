@@ -15,7 +15,7 @@ export default function NavBar() {
                     <span>About</span>
                 </div>
                 <svg 
-                    data-isOpen={isOpenMenu}
+                    data-isopen={isOpenMenu}
                     onClick={() => setIsOpenMenu(!isOpenMenu)}
                     width="35"
                     height="30"

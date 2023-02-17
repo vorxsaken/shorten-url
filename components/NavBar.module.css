@@ -59,7 +59,7 @@
         transition-duration: 300ms;
     }
 
-    .header svg[data-isOpen = "true"] path:nth-child(2) {
+    .header svg[data-isopen = "true"] path:nth-child(2) {
         transform: translateX(50px);
         opacity: 0%;
     }
