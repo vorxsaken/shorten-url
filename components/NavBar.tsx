@@ -1,20 +1,20 @@
 import styles from "./NavBar.module.css";
 import { Charm } from "@next/font/google";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 const charm = Charm({ weight: '400', subsets: ['latin'] })
 
 export default function NavBar() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
 
     return (
-        <>
-            <header className={styles.header}>
+        <div className={styles.container}>
+            <div className={styles.header}>
                 <p className={charm.className}>Shorten.io</p>
                 <div>
                     <span>Sign Up</span>
                     <span>About</span>
                 </div>
-                <svg 
+                <svg
                     data-isopen={isOpenMenu}
                     onClick={() => setIsOpenMenu(!isOpenMenu)}
                     width="35"
@@ -25,8 +25,8 @@ export default function NavBar() {
                         strokeWidth={2}
                         d={
                             isOpenMenu ?
-                            'M 3 16.5 L 17 2.5' :
-                            "M 2 2.5 L 20 2.5"
+                                'M 3 16.5 L 17 2.5' :
+                                "M 2 2.5 L 20 2.5"
                         }
                     />
                     <path
@@ -39,12 +39,16 @@ export default function NavBar() {
                         strokeWidth={2}
                         d={
                             isOpenMenu ?
-                            "M 3 2.5 L 17 16.346" :
-                            "M 2 16.346 L 20 16.346"
+                                "M 3 2.5 L 17 16.346" :
+                                "M 2 16.346 L 20 16.346"
                         }
                     />
                 </svg>
-            </header>
-        </>
+            </div>
+            <div data-isopen={isOpenMenu} className={styles.mobileMenu}>
+                <span>Sign In</span>
+                <span>About</span>
+            </div>
+        </div>
     )
 }
