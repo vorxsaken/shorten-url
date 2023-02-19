@@ -1,14 +1,14 @@
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import styles from './Button.module.css';
 
 interface Button {
     children: ReactNode,
-    mobile?: boolean
+    onClick?: MouseEventHandler
 }
 
-export default function Button({ children, mobile }: Button) {
+export default function Button({ children, onClick }: Button) {
     return (
-        <div className={styles.button}>
+        <div onClick={onClick} className={styles.button}>
             {children}
         </div>
     )

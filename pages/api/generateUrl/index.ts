@@ -2,6 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { PrismaClient } from "@prisma/client";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if(req.method == 'GET') return res.send(500);
+    
     const prisma = new PrismaClient();
 
     const { url, user } = req.body;

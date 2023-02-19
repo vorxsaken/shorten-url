@@ -1,6 +1,8 @@
 import styles from "./NavBar.module.css";
 import { Charm } from "@next/font/google";
 import { useState } from "react";
+import Link from "next/link";
+
 const charm = Charm({ weight: '400', subsets: ['latin'] })
 
 export default function NavBar() {
@@ -9,10 +11,12 @@ export default function NavBar() {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <p className={charm.className}>Shorten.io</p>
+                <Link href="/" className={`${styles.logo} ${charm.className}`}>Shorten</Link>
                 <div>
-                    <span>Sign Up</span>
-                    <span>About</span>
+                    <span className={styles.link}>Sign Up</span>
+                    <Link className={styles.link} href="/about">
+                        About
+                    </Link>
                 </div>
                 <svg
                     data-isopen={isOpenMenu}
