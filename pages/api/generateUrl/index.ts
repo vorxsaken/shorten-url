@@ -5,10 +5,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if(req.method == 'GET') return res.send(500);
     
     const prisma = new PrismaClient();
+    const body = JSON.parse(req.body);
+    const { url, user } = body;
 
-    const { url, user } = req.body;
-
-    const pattern: RegExp = /^([https?:\/\/]+)?(w{3}.)?[\w+]+\.[\w+]+[\w+\W?]?/;
+    const pattern: RegExp = /^([https?:\/\/]+)?(w{3}.)?[\w+\W?]+\.[\w+]+[\w+\W?]?/;
 
     if (pattern.test(url)) {
         const alphabeticAndNumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -24,7 +24,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     user: user ?? '',
                     url: url,
                     alias: randomCode,
-
                 }
             })
             return res.status(200).send(shorten);
@@ -33,6 +32,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
     }
 
-    res.status(400).send({ message: 'not url !!!' });
+    return res.status(400).send({message: 'not url !!'});
 
 }
