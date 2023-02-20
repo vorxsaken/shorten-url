@@ -1,0 +1,55 @@
+.container {
+    position: absolute;
+    top: 0px;
+    opacity: 0;
+    left: 32%;
+    width: 40%;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-hover);
+    box-shadow: 0px 0px 80px -50px var(--foreground-rgb);
+    border-radius: 10px;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.container[data-showmodal='true'] {
+    opacity: 100;
+    top: 150px;
+}
+
+.signInButton {
+    width: 50%;
+    height: auto;
+    padding: 10px 20px 10px 20px;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--background);
+    color: var(--foreground-rgb);
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.signInButton:hover {
+    box-shadow: 0px 0px 80px -30px var(--foreground-rgb);
+
+}
+
+.signInButton div:first-child {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 8px;
+}
+
+.signInButton div:nth-child(2) {
+    flex-grow: 2;
+    height: auto;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 2rem;
+}

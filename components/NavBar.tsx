@@ -1,20 +1,42 @@
 import styles from "./NavBar.module.css";
-import { Charm } from "@next/font/google";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-
-const charm = Charm({ weight: '400', subsets: ['latin'] })
+import { charm } from "@/utils";
+import SignInModal from "./SignInModal";
 
 export default function NavBar() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
+    const [modal, setModal] = useState(false);
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const checkIfClickedOutside = (e: MouseEvent) => {
+            const current = ref.current as any;
+            if(modal && ref.current && !current.contains(e.target)) {
+                setModal(false);
+            }
+        }
+
+        document.addEventListener("mousedown", checkIfClickedOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
+    }, [modal])
 
     return (
         <div className={styles.container}>
             <div className={styles.header}>
                 <Link href="/" className={`${styles.logo} ${charm.className}`}>Shorten</Link>
                 <div>
-                    <span className={styles.link}>Sign Up</span>
-                    <Link className={styles.link} href="/about">
+                    <span
+                        onClick={() => setModal(!modal)}
+                        className={styles.link}>
+                        Sign Up
+                    </span>
+                    <Link
+                        className={styles.link}
+                        href="/about">
                         About
                     </Link>
                 </div>
@@ -52,6 +74,9 @@ export default function NavBar() {
             <div data-isopen={isOpenMenu} className={styles.mobileMenu}>
                 <span>Sign In</span>
                 <span>About</span>
+            </div>
+            <div ref={ref}>
+                <SignInModal showModal={modal} />
             </div>
         </div>
     )
