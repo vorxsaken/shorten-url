@@ -37,13 +37,12 @@ ul {
 
 .main {
   width: 100vw;
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 8rem;
   gap: 40px;
-  padding: 0px 100px;
 }
 
 .header {
@@ -66,6 +65,7 @@ ul {
 .body {
   width: auto;
   height: auto;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -136,11 +136,9 @@ ul {
   transition: all .2s ease;
 }
 
-.body 
-.copyField 
-.icons[data-iscopy='false']:hover > span {
+.body .copyField .icons[data-iscopy='false']:hover>span {
   opacity: 0.5;
-} 
+}
 
 .about {
   width: 50vw;
@@ -158,8 +156,16 @@ ul {
     font-size: 4.5rem;
   }
 
+  .body {
+    min-height: 85vh;
+  }
+
   .body input[type=text] {
     width: 350px;
+  }
+
+  .qrcodeContainer {
+    width: 85vw;
   }
 
   .about {
