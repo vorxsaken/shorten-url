@@ -1,6 +1,6 @@
 .container {
     position: absolute;
-    top: 0px;
+    top: -300px;
     opacity: 0;
     left: 32%;
     width: 40%;
@@ -52,4 +52,21 @@
     text-align: center;
     font-weight: bolder;
     font-size: 2rem;
+}
+
+@media (max-width: 700px) {
+    .container {
+        left: 10%;
+        width: 80%;
+        height: 25vh;
+    }
+
+    .container[data-showmodal='true'] {
+        opacity: 100;
+        top: 250px;
+    }
+
+    .signInButton {
+        width: 70%;
+    }
 }

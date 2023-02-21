@@ -3,11 +3,13 @@ import Layout from '@/components/Layout';
 import Button from '@/components/Button';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 export default function Home() {
   const [url, setUrl] = useState('')
   const router = useRouter();
-
+  const { data: session, status} = useSession();
+  
   const generateUrl = async () => {
     if (url.length < 1) return;
 
@@ -15,7 +17,7 @@ export default function Home() {
       const getGeneratedUrl = await fetch('http://localhost:3000/api/generateUrl', {
         method: "POST",
         body: JSON.stringify({
-          user: '',
+          user: session?.user?.email ?? '',
           url: url
         })
       })
