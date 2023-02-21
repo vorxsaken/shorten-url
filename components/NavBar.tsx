@@ -3,21 +3,24 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { charm } from "@/utils";
 import SignInModal from "./SignInModal";
+import { useSession } from "next-auth/react";
 
 export default function NavBar() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const [modal, setModal] = useState(false);
+    const [dropdownMobile, setDropdownMobile] = useState(false)
     const ref = useRef(null);
+    const { data: session, status } = useSession();
 
     useEffect(() => {
         const checkIfClickedOutside = (e: MouseEvent) => {
             const current = ref.current as any;
-            if(modal && ref.current && !current.contains(e.target)) {
+            if (modal && ref.current && !current.contains(e.target)) {
                 setModal(false);
             }
         }
 
-        document.addEventListener("mousedown", checkIfClickedOutside);
+        document.addEventListener("mousedown", checkIfClickedOutside, false);
 
         return () => {
             document.removeEventListener("mousedown", checkIfClickedOutside)
@@ -29,11 +32,30 @@ export default function NavBar() {
             <div className={styles.header}>
                 <Link href="/" className={`${styles.logo} ${charm.className}`}>Shorten</Link>
                 <div>
-                    <span
-                        onClick={() => setModal(!modal)}
-                        className={styles.link}>
-                        Sign Up
-                    </span>
+                    {status === "authenticated" ? (
+                        <div className={styles.dropdownContainer}>
+                            <div className={styles.link}>
+                                <p>{session?.user?.name}</p>
+                            </div>
+                            <div className={styles.dropdown}>
+                                <span>My links</span>
+                                <span>Logout</span>
+                            </div>
+                        </div>
+                    ) :
+                        modal ? (
+                            <div
+                                className={styles.link}>
+                                Sign Up
+                            </div>
+                        ) : (
+                            <span
+                                onClick={() => setModal(true)}
+                                className={styles.link}>
+                                Sign Up
+                            </span>
+                        )
+                    }
                     <Link
                         className={styles.link}
                         href="/about">
@@ -72,7 +94,23 @@ export default function NavBar() {
                 </svg>
             </div>
             <div data-isopen={isOpenMenu} className={styles.mobileMenu}>
-                <span>Sign In</span>
+                <div className={styles.dropdownMobileContainer}>
+                    <span
+                        onClick={() => setDropdownMobile(!dropdownMobile)}
+                    >
+                        {session?.user?.name}
+                    </span>
+                    <div
+                        data-dropdownmobile={dropdownMobile}
+                        className={styles.dropdownMobile}
+                    >
+                            <span>My Links</span>
+                            <span>Logout</span>
+                    </div>
+                </div>
+                {/* <span onClick={() => setModal(true)}>
+                    Sign In
+                </span> */}
                 <span>About</span>
             </div>
             <div ref={ref}>

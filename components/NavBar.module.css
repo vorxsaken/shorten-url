@@ -46,6 +46,47 @@
     transform: translateX(-2px) translateY(-2px);
 }
 
+.header div .dropdownContainer {
+    position: relative;
+    flex-direction: column;
+}
+
+.header div .dropdownContainer .dropdown {
+    position: absolute;
+    top: 3rem;
+    width: 180px;
+    background-color: var(--background-hover);
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    padding: 20px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 100px -50px var(--foreground-rgb);
+    visibility: hidden;
+    opacity: 0;
+    transition: all .5s ease;
+}
+
+.header div .dropdownContainer:hover > .header div .dropdownContainer .dropdown {
+    visibility: visible;
+    opacity: 1;
+}
+
+.header div .dropdownContainer .dropdown span {
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.header div .dropdownContainer .dropdown span:hover {
+    background-color: var(--background);
+}
+
+.header div .dropdownContainer:hover > .dropdown {
+    visibility: visible;
+    opacity: 1;
+}
+
 .header svg {
     display: none;
 }
@@ -92,7 +133,7 @@
         gap: 35px;
         transition: all .4s ease-in-out;
         position: relative;
-        top: -200px;
+        top: -300px;
         z-index: -1;
         font-weight: bold;
     }
@@ -101,4 +142,43 @@
         top: 0px;
         box-shadow: 0px -15px 20px 0.5px var(--foreground-rgb);   
     }
+
+    .dropdownMobileContainer {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .dropdownMobileContainer .dropdownMobile {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        height: 0px;
+        transition: all .5s ease .2s;
+    }
+
+    .dropdownMobileContainer .dropdownMobile[data-dropdownmobile='true']{
+        height: 130px;
+        transition: all .5s ease 0s;
+    }
+
+    .dropdownMobileContainer .dropdownMobile span {
+        padding: 20px 30px;
+        border-radius: 5px;
+        background-color: var(--background-hover);
+        visibility: hidden;
+        opacity: 0;
+        transition: all .4s ease 0s;
+    }
+
+    .dropdownMobileContainer .dropdownMobile span:first-child {
+        margin-top: 20px;
+    }
+
+    .dropdownMobileContainer .dropdownMobile[data-dropdownmobile='true'] span {
+        visibility: visible;
+        opacity: 1;
+        transition: all .4s ease .5s;
+    }
+
 }
