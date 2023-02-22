@@ -1,6 +1,7 @@
-POST http://localhost:3000/api/generateUrl
+POST http://localhost:3000/userLinks
 Content-Type: application/json
 
 {
-    "url": "fahmi"
+    "text": "fahmi"
 }
+

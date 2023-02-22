@@ -59,9 +59,9 @@
     display: flex;
     gap: 5px;
     flex-direction: column;
-    padding: 20px 20px;
+    padding: 10px 10px;
     border-radius: 10px;
-    box-shadow: 0px 0px 100px -50px var(--foreground-rgb);
+    box-shadow: 0px 0px 100px -30px var(--foreground-rgb);
     visibility: hidden;
     opacity: 0;
     transition: all .5s ease;
@@ -72,13 +72,13 @@
     opacity: 1;
 }
 
-.header div .dropdownContainer .dropdown span {
-    padding: 20px;
-    border-radius: 10px;
+.header div .dropdownContainer .dropdown .dropdownMenu {
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-.header div .dropdownContainer .dropdown span:hover {
+.header div .dropdownContainer .dropdown .dropdownMenu:hover {
     background-color: var(--background);
 }
 

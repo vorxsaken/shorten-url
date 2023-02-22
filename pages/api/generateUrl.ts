@@ -24,6 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     user: user ?? '',
                     url: url,
                     alias: randomCode,
+                    counter: 0
                 }
             })
             return res.status(200).send(shorten);

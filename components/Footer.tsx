@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
         <div className={styles.content}>
           <p>
-            Fueled with NextJS. Source code available in &nbsp;
+            Fueled by NextJS. Source code available in &nbsp;
             <a
               href="https://github.com/vorxsaken/shorten-url"
               target="_blank"

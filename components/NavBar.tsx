@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { charm } from "@/utils";
 import SignInModal from "./SignInModal";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 export default function NavBar() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -38,8 +38,14 @@ export default function NavBar() {
                                 <p>{session?.user?.name}</p>
                             </div>
                             <div className={styles.dropdown}>
-                                <span>My links</span>
-                                <span>Logout</span>
+                                <Link className={styles.dropdownMenu} href='/userLinks'>
+                                    My Links
+                                </Link>
+                                <span
+                                    className={styles.dropdownMenu}
+                                    onClick={() => signOut()}>
+                                        Logout
+                                </span>
                             </div>
                         </div>
                     ) :
@@ -94,23 +100,28 @@ export default function NavBar() {
                 </svg>
             </div>
             <div data-isopen={isOpenMenu} className={styles.mobileMenu}>
-                <div className={styles.dropdownMobileContainer}>
-                    <span
-                        onClick={() => setDropdownMobile(!dropdownMobile)}
-                    >
-                        {session?.user?.name}
-                    </span>
-                    <div
-                        data-dropdownmobile={dropdownMobile}
-                        className={styles.dropdownMobile}
-                    >
-                            <span>My Links</span>
-                            <span>Logout</span>
-                    </div>
-                </div>
-                {/* <span onClick={() => setModal(true)}>
-                    Sign In
-                </span> */}
+                {
+                    status === "authenticated" ? (
+                        <div className={styles.dropdownMobileContainer}>
+                            <span
+                                onClick={() => setDropdownMobile(!dropdownMobile)}
+                            >
+                                {session?.user?.name}
+                            </span>
+                            <div
+                                data-dropdownmobile={dropdownMobile}
+                                className={styles.dropdownMobile}
+                            >
+                                <span>My Links</span>
+                                <span onClick={() => signOut()}>Logout</span>
+                            </div>
+                        </div>
+                    ) : (
+                        <span onClick={() => setModal(true)}>
+                            Sign In
+                        </span>
+                    )
+                }
                 <span>About</span>
             </div>
             <div ref={ref}>

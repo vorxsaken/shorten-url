@@ -15,7 +15,29 @@
     user-select: none;
 }
 
+.smallButton{
+    width: 60px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--background);
+    background-color: var(--foreground-rgb);
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-delay: .1s;
+    user-select: none;
+}
+
 .button:hover {
+    transform: translateY(-4px);
+    opacity: 0.9;
+}
+
+.smallButton:hover {
     transform: translateY(-4px);
     opacity: 0.9;
 }

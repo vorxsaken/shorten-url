@@ -33,7 +33,7 @@ export default function sortedLink({ alias }: { alias: string }) {
             <div className="main">
                 <div className={`header ${charm.className}`}>
                     <p className='title'>Generated</p>
-                    <p>url successfuly generated</p>
+                    <p>below is your generated url</p>
                 </div>
                 <div className="body">
                     <div className="copyField">

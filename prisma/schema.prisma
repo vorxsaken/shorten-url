@@ -12,6 +12,7 @@ model Shorten {
     user              String 
     url               String
     alias             String
+    counter           Int
 
     @@map("shortens")
 }
