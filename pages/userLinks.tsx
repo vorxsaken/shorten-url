@@ -4,15 +4,25 @@ import Button from "@/components/Button";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import loadingGear from "../assets/Gear-0.2s-200px.svg";
-import loadingGearWhite from "../assets/Gear-0.2s-200px white.svg";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function userLinks() {
     const [links, setLinks] = useState<any[]>([]);
     const [loadingStatus, SetLoadingStatus] = useState('loading');
-    const [loadingStatusRefresh, setLoadingStatusRefresh] = useState('idle');
+    const [loadingStatusRefresh, setLoadingStatusRefresh] = useState(false);
+    const [loadingObjectId, setLoadingObjectId] = useState<any>({});
     const { data: session, status } = useSession();
+
+    const createLoadingObjectId = (linksArray: any) => {
+        for (const links of linksArray) {
+            for (const link in links) {
+                if (link == "id") {
+                    setLoadingObjectId({ ...loadingObjectId, [links[link]]: false })
+                }
+            }
+        }
+    }
 
     const fetchUserLinks = async () => {
         try {
@@ -27,6 +37,7 @@ export default function userLinks() {
 
             if (getUserLinks.status === 200) {
                 SetLoadingStatus('fullfilled');
+                createLoadingObjectId(userLinks);
                 setLinks(userLinks);
                 return userLinks;
             };
@@ -39,22 +50,44 @@ export default function userLinks() {
         }
     }
 
-    const deleteLink = async (id: string) => {
-        const getDeleteLink = await fetch(`http://localhost:3000/deleteLink/${id}`);
-        const linkId = await getDeleteLink.json();
+    const filterLinks = (linksId: any) => {
+        setLinks(vals => vals.filter(val => val.id !== linksId.id));
+        
+        const loadingObjectAsArray = Object.entries(loadingObjectId);
+        const newloadingObjectAsArray  = loadingObjectAsArray.filter(([key, value]) => key !== linksId.id );
+        const newLoadingObject = Object.fromEntries(newloadingObjectAsArray);
 
-        setLinks(vals => vals.filter(val => val.id !== linkId.id));
+        setLoadingObjectId(newLoadingObject);
+    }
+
+    const deleteLink = async (id: string) => {
+        setLoadingObjectId({ ...loadingObjectId, [id]: true });
+        try {
+            const getDeleteLink = await fetch(`http://localhost:3000/api/deleteLink/${id}`);
+            const linksId = await getDeleteLink.json();
+
+            if(getDeleteLink.status === 200) {
+                setLoadingObjectId({ ...loadingObjectId, [id]: false });
+                return filterLinks(linksId);
+            }
+
+            throw new Error(linksId.message);
+
+        } catch (error) {
+            setLoadingObjectId({ ...loadingObjectId, [id]: false });
+            console.log(error)
+         }
     }
 
     const refreshLinks = async () => {
-        setLoadingStatusRefresh('loading');
+        setLoadingStatusRefresh(true);
         let linksTemp = await fetchUserLinks();
 
         if (JSON.stringify(links) !== JSON.stringify(linksTemp)) {
             setLinks(linksTemp);
         }
 
-        setLoadingStatusRefresh('idle');
+        setLoadingStatusRefresh(false);
 
     }
 
@@ -73,12 +106,8 @@ export default function userLinks() {
                 </div>
                 <div className="body">
                     <div className="container">
-                        <Button onClick={() => refreshLinks()}>
-                            {
-                                loadingStatusRefresh === 'loading' ? (
-                                    <Image src={loadingGearWhite} width="30" height={30} alt="gear" />
-                                ) : 'Refresh'
-                            }
+                        <Button loading={loadingStatusRefresh} onClick={() => refreshLinks()}>
+                            Refresh
                         </Button>
                     </div>
                     {
@@ -106,7 +135,12 @@ export default function userLinks() {
                                                 <span className="container__item__block__text">{link.counter}</span>
                                             </div>
                                             <div className="container container--attached container__item__block">
-                                                <Button icon={true}>Delete</Button>
+                                                <Button
+                                                    onClick={() => deleteLink(link.id)}
+                                                    loading={loadingObjectId[link.id]}
+                                                    icon={true}>
+                                                    Delete
+                                                </Button>
                                             </div>
                                         </div>
                                     ))
