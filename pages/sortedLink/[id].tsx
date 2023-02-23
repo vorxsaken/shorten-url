@@ -4,11 +4,13 @@ import Layout from "@/components/Layout";
 import { charm, currentDate } from "@/utils";
 import { MdOutlineContentCopy, MdCheckCircle } from "react-icons/md";
 import { useState } from "react"
-import {QRCode} from 'react-qrcode-logo'
+import { QRCode } from 'react-qrcode-logo'
+import { UseThemeContext } from "@/context/StateProvider";
 
 export default function sortedLink({ alias }: { alias: string }) {
     const [isCopy, setIsCopy] = useState(false);
     const shortentextValue = `shorten.io/api/${alias}`
+    const [{ dark }] = UseThemeContext();
 
     const copyToClipboard = () => {
         setIsCopy((v) => !v);
@@ -23,7 +25,7 @@ export default function sortedLink({ alias }: { alias: string }) {
         const qrcode = document.getElementById('qrcode') as HTMLCanvasElement;
         const link = document.createElement('a') as HTMLAnchorElement;
 
-        link.download = `${ currentDate() } shorten qrcode.png`;
+        link.download = `${currentDate()} shorten qrcode.png`;
         link.href = qrcode?.toDataURL();
         link.click();
     }
@@ -58,11 +60,12 @@ export default function sortedLink({ alias }: { alias: string }) {
                     </div>
                     <div className="qrcodeContainer">
                         <div className="qrcode">
-                            <QRCode 
-                            id="qrcode"
-                            value={shortentextValue} 
-                            bgColor="rgba(255, 255, 255, 0%)" 
-                            size={250} />
+                            <QRCode
+                                id="qrcode"
+                                fgColor={dark ? 'white' : 'black'}
+                                value={shortentextValue}
+                                bgColor="rgba(255, 255, 255, 0%)"
+                                size={250} />
                         </div>
                         <Button onClick={() => download()}>Download</Button>
                     </div>

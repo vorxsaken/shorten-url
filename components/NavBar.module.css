@@ -33,6 +33,15 @@
     gap: 8px
 }
 
+.changeMode {
+    width: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+}
+
 .header div .link {
     border-radius: var(--border-radius);
     padding: 12px;

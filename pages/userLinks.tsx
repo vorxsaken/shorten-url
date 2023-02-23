@@ -4,8 +4,10 @@ import Button from "@/components/Button";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import loadingGear from "../assets/Gear-0.2s-200px.svg";
+import loadingGearWhite from "../assets/Gear-0.2s-200px white.svg";
 import Link from "next/link";
 import Image from "next/image";
+import { UseThemeContext } from "@/context/StateProvider";
 
 export default function userLinks() {
     const [links, setLinks] = useState<any[]>([]);
@@ -13,6 +15,7 @@ export default function userLinks() {
     const [loadingStatusRefresh, setLoadingStatusRefresh] = useState(false);
     const [loadingObjectId, setLoadingObjectId] = useState<any>({});
     const { data: session, status } = useSession();
+    const [{ dark }] = UseThemeContext();
 
     const createLoadingObjectId = (linksArray: any) => {
         for (const links of linksArray) {
@@ -52,9 +55,9 @@ export default function userLinks() {
 
     const filterLinks = (linksId: any) => {
         setLinks(vals => vals.filter(val => val.id !== linksId.id));
-        
+
         const loadingObjectAsArray = Object.entries(loadingObjectId);
-        const newloadingObjectAsArray  = loadingObjectAsArray.filter(([key, value]) => key !== linksId.id );
+        const newloadingObjectAsArray = loadingObjectAsArray.filter(([key, value]) => key !== linksId.id);
         const newLoadingObject = Object.fromEntries(newloadingObjectAsArray);
 
         setLoadingObjectId(newLoadingObject);
@@ -66,7 +69,7 @@ export default function userLinks() {
             const getDeleteLink = await fetch(`http://localhost:3000/api/deleteLink/${id}`);
             const linksId = await getDeleteLink.json();
 
-            if(getDeleteLink.status === 200) {
+            if (getDeleteLink.status === 200) {
                 setLoadingObjectId({ ...loadingObjectId, [id]: false });
                 return filterLinks(linksId);
             }
@@ -76,7 +79,7 @@ export default function userLinks() {
         } catch (error) {
             setLoadingObjectId({ ...loadingObjectId, [id]: false });
             console.log(error)
-         }
+        }
     }
 
     const refreshLinks = async () => {
@@ -113,7 +116,7 @@ export default function userLinks() {
                     {
                         loadingStatus === "loading" ? (
                             <div className="container container--item-center">
-                                <Image src={loadingGear} alt="" />
+                                <Image src={dark ? loadingGearWhite : loadingGear} alt="" />
                             </div>
                         ) : loadingStatus === 'empty' ? (
                             <div className="container container--item-center">

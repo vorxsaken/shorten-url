@@ -4,6 +4,10 @@ import Link from "next/link";
 import { charm } from "@/utils";
 import SignInModal from "./SignInModal";
 import { useSession, signOut } from "next-auth/react";
+import { UseThemeContext } from "@/context/StateProvider";
+import lightMode from "../assets/light.png";
+import darkMode from "../assets/dark.png";
+import Image from "next/image";
 
 export default function NavBar() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -11,6 +15,35 @@ export default function NavBar() {
     const [dropdownMobile, setDropdownMobile] = useState(false)
     const ref = useRef(null);
     const { data: session, status } = useSession();
+    const [{ dark }, dispatch] = UseThemeContext();
+
+    const changeMode = () => {
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.remove('dark');
+            localStorage.removeItem('theme');
+            dispatch({
+                type: 'CHANGE_THEME',
+                dark: false
+            })
+            return
+        }
+
+        dispatch({
+            type: 'CHANGE_THEME',
+            dark: true
+        })
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem('theme')) {
+            dispatch({
+                type: 'CHANGE_THEME',
+                dark: true
+            })
+        }
+    }, [])
 
     useEffect(() => {
         const checkIfClickedOutside = (e: MouseEvent) => {
@@ -32,6 +65,9 @@ export default function NavBar() {
             <div className={styles.header}>
                 <Link href="/" className={`${styles.logo} ${charm.className}`}>Shorten</Link>
                 <div>
+                    <div onClick={() => changeMode()} className={styles.changeMode}>
+                        <Image src={dark ? lightMode : darkMode} width={25} height={25} alt="mode" />
+                    </div>
                     {status === "authenticated" ? (
                         <div className={styles.dropdownContainer}>
                             <div className={styles.link}>
@@ -44,7 +80,7 @@ export default function NavBar() {
                                 <span
                                     className={styles.dropdownMenu}
                                     onClick={() => signOut()}>
-                                        Logout
+                                    Logout
                                 </span>
                             </div>
                         </div>

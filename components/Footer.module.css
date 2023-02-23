@@ -5,7 +5,7 @@
     padding: 50px 0px;
     justify-content: center;
     color: var(--foreground-rgb);
-    border-top: 1px solid var(--foreground-rgb);
+    border-top: 1px solid var(--footer-border-color);
 }
 
 .body {
