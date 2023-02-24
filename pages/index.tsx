@@ -9,7 +9,7 @@ export default function Home() {
   const [url, setUrl] = useState('')
   const router = useRouter();
   const { data: session, status} = useSession();
-  
+
   const generateUrl = async () => {
     if (url.length < 1) return;
 
@@ -37,7 +37,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className='main'>
+      <article className='main'>
         <div className={`header ${charm.className}`}>
           <p className='title'>Shorten</p>
           <p className='subtitle'>shorten your url</p>
@@ -51,7 +51,7 @@ export default function Home() {
             placeholder='input your url ...' />
           <Button onClick={() => generateUrl()}>Generate</Button>
         </div>
-      </div>
+      </article>
     </Layout>
   )
 }
