@@ -8,6 +8,7 @@ import loadingGearWhite from "../assets/Gear-0.2s-200px white.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { UseThemeContext } from "@/context/StateProvider";
+import { useRouter } from "next/router";
 
 export default function UserLinks() {
     const [links, setLinks] = useState<any[]>([]);
@@ -16,6 +17,7 @@ export default function UserLinks() {
     const [loadingObjectId, setLoadingObjectId] = useState<any>({});
     const { data: session, status } = useSession();
     const [{ dark }] = UseThemeContext();
+    const router = useRouter();
 
     const createLoadingObjectId = (linksArray: any) => {
         for (const links of linksArray) {
@@ -97,6 +99,8 @@ export default function UserLinks() {
     useEffect(() => {
         if (status === "authenticated") {
             fetchUserLinks();
+        } else if (status === "unauthenticated") {
+            router.replace('/');
         }
     }, [status])
 
