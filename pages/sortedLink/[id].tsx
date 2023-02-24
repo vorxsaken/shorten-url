@@ -7,7 +7,7 @@ import { useState } from "react"
 import { QRCode } from 'react-qrcode-logo'
 import { UseThemeContext } from "@/context/StateProvider";
 
-export default function sortedLink({ alias }: { alias: string }) {
+export default function SortedLink({ alias }: { alias: string }) {
     const [isCopy, setIsCopy] = useState(false);
     const shortentextValue = `shorten.io/api/${alias}`
     const [{ dark }] = UseThemeContext();

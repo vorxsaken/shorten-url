@@ -1,4 +1,4 @@
-import { useContext, createContext, ReactNode, useReducer } from "react";
+import React, { useContext, createContext, ReactNode, useReducer } from "react";
 import { theme, reducer } from "./context";
 
 const ThemeContext = createContext<any>([]);

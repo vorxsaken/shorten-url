@@ -9,7 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { UseThemeContext } from "@/context/StateProvider";
 
-export default function userLinks() {
+export default function UserLinks() {
     const [links, setLinks] = useState<any[]>([]);
     const [loadingStatus, SetLoadingStatus] = useState('loading');
     const [loadingStatusRefresh, setLoadingStatusRefresh] = useState(false);
@@ -116,11 +116,11 @@ export default function userLinks() {
                     {
                         loadingStatus === "loading" ? (
                             <div className="container container--item-center">
-                                <Image src={dark ? loadingGearWhite : loadingGear} alt="" />
+                                <Image src={dark ? loadingGearWhite : loadingGear} width={100} height={100} alt="" />
                             </div>
                         ) : loadingStatus === 'empty' ? (
                             <div className="container container--item-center">
-                                <span>no data</span>
+                                <span className="container__item__block__text">Empty 😅😥</span>
                             </div>
                         ) : (
                             <div className="container">
