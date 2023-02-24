@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout"
 import { charm } from "@/utils";
+import Link from "next/link";
 
 export default function about() {
   return (
@@ -10,14 +11,17 @@ export default function about() {
                     About
                 </div>
             </div>
-            <div className="body">
+            <article className="body">
                 <div className="about">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod praesentium nesciunt nobis molestias itaque error reiciendis nostrum, labore eaque saepe pariatur laborum architecto voluptatibus. Rem repudiandae neque exercitationem esse quia.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores nostrum aliquam repellat quia est sed, quae et maxime deleniti provident tenetur, aspernatur excepturi architecto similique commodi facere facilis ipsam eveniet?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam iusto perspiciatis nihil fugiat architecto repellat quas unde? Quae ducimus, eveniet, cupiditate numquam fugit, beatae fugiat ipsum in voluptatum id excepturi.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut harum aliquid temporibus repellat est voluptatibus ab, velit nisi. Quis magnam repellendus, autem ipsum in recusandae obcaecati amet rem. Labore, provident.
+                    what is this web app ?. this web app is thing you can use to shorten long ass url 
+                    for example you may had url like this : <br /><br />
+                     <i>https://www.bilibili.tv/en/play/1066507?bstar_from=bstar-web.homepage.anime.all</i> <br /><br />
+                    i mean who's gonna remember that, with this app what u can do visit the initial page of this &nbsp;
+                    <Link style={{fontWeight: 'bolder'}} href="/">app</Link> then enter your long url, click generate button, then voila, you got the shorten url 
+                    and the qrcode that you can download. you can also sign up with your google account if you think you have 
+                    a bunch of url the number of people clicks your url you wanna track.
                 </div>
-            </div>
+            </article>
         </div>
     </Layout>
   )
