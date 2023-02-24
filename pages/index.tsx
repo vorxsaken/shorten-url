@@ -14,7 +14,7 @@ export default function Home() {
     if (url.length < 1) return;
 
     try {
-      const getGeneratedUrl = await fetch('http://localhost:3000/api/generateUrl', {
+      const getGeneratedUrl = await fetch('https://srt-delta.vercel.app/api/generateUrl', {
         method: "POST",
         body: JSON.stringify({
           user: session?.user?.email ?? '',

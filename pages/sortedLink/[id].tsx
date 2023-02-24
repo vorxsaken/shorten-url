@@ -9,7 +9,7 @@ import { UseThemeContext } from "@/context/StateProvider";
 
 export default function SortedLink({ alias }: { alias: string }) {
     const [isCopy, setIsCopy] = useState(false);
-    const shortentextValue = `shorten.io/api/${alias}`
+    const shortentextValue = `srt-delta.vercel.app/api/${alias}`
     const [{ dark }] = UseThemeContext();
 
     const copyToClipboard = () => {

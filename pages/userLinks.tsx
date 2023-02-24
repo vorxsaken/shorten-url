@@ -29,7 +29,7 @@ export default function UserLinks() {
 
     const fetchUserLinks = async () => {
         try {
-            const getUserLinks = await fetch('http://localhost:3000/api/getUserLinks', {
+            const getUserLinks = await fetch('https://srt-delta.vercel.app/api/getUserLinks', {
                 method: "POST",
                 body: JSON.stringify({
                     email: session?.user?.email
@@ -66,7 +66,7 @@ export default function UserLinks() {
     const deleteLink = async (id: string) => {
         setLoadingObjectId({ ...loadingObjectId, [id]: true });
         try {
-            const getDeleteLink = await fetch(`http://localhost:3000/api/deleteLink/${id}`);
+            const getDeleteLink = await fetch(`https://srt-delta.vercel.app/api/deleteLink/${id}`);
             const linksId = await getDeleteLink.json();
 
             if (getDeleteLink.status === 200) {
@@ -130,7 +130,7 @@ export default function UserLinks() {
                                             <div className="container container--attached container__item__block container__item__block--grow-1">
                                                 <span className="container__item__block__text container__item__block__text--sm">Shorten Link</span>
                                                 <Link href={`/sortedLink/${link.id}`}>
-                                                    <span className="container__item__block__text">shorten.io/api/{link.alias}</span>
+                                                    <span className="container__item__block__text">srt-delta.vercel.app/api/{link.alias}</span>
                                                 </Link>
                                             </div>
                                             <div className="container container--attached container__item__block">
