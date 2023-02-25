@@ -13,8 +13,8 @@ export default function Home() {
   const { data: session } = useSession();
 
   const generateUrl = async () => {
-    setIsLoading(true);
     if (url.length < 1) return;
+    setIsLoading(true);
 
     try {
       const getGeneratedUrl = await fetch('https://srt-delta.vercel.app/api/generateUrl', {
@@ -42,7 +42,7 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>Shorten url</title>
+        <title>Url Shorten</title>
       </Head>
       <article className='main'>
         <div className={`header ${charm.className}`}>
