@@ -8,6 +8,7 @@ import { UseThemeContext } from "@/context/StateProvider";
 import lightMode from "../assets/light.png";
 import darkMode from "../assets/dark.png";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function NavBar() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -16,6 +17,7 @@ export default function NavBar() {
     const ref = useRef(null);
     const { data: session, status } = useSession();
     const [{ dark }, dispatch] = UseThemeContext();
+    const router = useRouter();
 
     const changeMode = () => {
         if (localStorage.getItem('theme') === 'dark') {
@@ -148,7 +150,7 @@ export default function NavBar() {
                                 data-dropdownmobile={dropdownMobile}
                                 className={styles.dropdownMobile}
                             >
-                                <span>My Links</span>
+                                <span onClick={() => router.push('/userLinks')} >My Links</span>
                                 <span onClick={() => signOut()}>Logout</span>
                             </div>
                         </div>
@@ -158,7 +160,10 @@ export default function NavBar() {
                         </span>
                     )
                 }
-                <span>About</span>
+                <Link href="/about">About</Link>
+                <div onClick={() => changeMode()} className={styles.changeMode}>
+                    <Image src={dark ? lightMode : darkMode} width={25} height={25} alt="mode" />
+                </div>
             </div>
             <div ref={ref}>
                 <SignInModal showModal={modal} />

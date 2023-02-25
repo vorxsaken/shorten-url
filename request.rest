@@ -1,7 +1,2 @@
-POST http://localhost:3000/userLinks
-Content-Type: application/json
-
-{
-    "text": "fahmi"
-}
+GET http://localhost:3000/api/TPRF8
 

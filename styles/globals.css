@@ -215,7 +215,11 @@ ul {
   }
 
   .header .title {
-    font-size: 4.5rem;
+    font-size: 4rem;
+  }
+
+  .header .subtitle {
+    font-size: 0.8rem;
   }
 
   .body {
@@ -223,7 +227,7 @@ ul {
   }
 
   .body input[type=text] {
-    width: 350px;
+    width: 330px;
   }
 
   .qrcodeContainer {
@@ -238,14 +242,17 @@ ul {
   .container__item {
     width: 90vw;
   }
-
+  
+  .container__item__block:first-child{
+    padding: 5px 0px 5px 10px;
+  }
   .container__item__block:nth-child(2) {
-    padding: 10px 10px;
+    padding: 0px 10px;
     text-align: center;
   }
 
   .container__item__block__text {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
   }
 
 

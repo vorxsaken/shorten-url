@@ -25,7 +25,7 @@ export default function Footer() {
               href="https://github.com/vorxsaken/shorten-url"
               target="_blank"
               rel="noopener noreferrer">
-                github
+              github
             </a>
           </p>
         </div>

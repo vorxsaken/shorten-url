@@ -107,7 +107,6 @@
 @media (max-width: 700px) {
     .header {
         padding: 10px 30px 10px 20px;
-        height: 8vh;
     }
 
     .header div {
