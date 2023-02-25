@@ -63,7 +63,7 @@
 
     .container[data-showmodal='true'] {
         opacity: 100;
-        top: 250px;
+        top: 150px;
     }
 
     .signInButton {
