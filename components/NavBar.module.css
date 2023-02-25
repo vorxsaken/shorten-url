@@ -134,20 +134,19 @@
         justify-items: center;
         align-items: center;
         width: 100%;
-        height: auto;
         padding: 30px 0px;
         color: var(--foreground-rgb);
         background-color: var(--background);
         gap: 35px;
-        transition: all .4s ease-in-out;
-        position: relative;
+        position: absolute;
+        transition: top .2s;
         top: -300px;
         z-index: -1;
         font-weight: bold;
     }
 
     .mobileMenu[data-isopen='true'] {
-        top: 0px;
+        top: 9vh;
         box-shadow: 0px -15px 20px 0.5px var(--foreground-rgb);   
     }
 
