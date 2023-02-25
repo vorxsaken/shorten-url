@@ -258,6 +258,12 @@ ul {
 
 }
 
+@media ( max-height: 665px) {
+  .body {
+    min-height: 90vh;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
