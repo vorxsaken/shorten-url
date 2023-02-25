@@ -1,10 +1,14 @@
 import Layout from "@/components/Layout"
 import { charm } from "@/utils";
 import Link from "next/link";
+import Head from 'next/head';
 
 export default function about() {
   return (
     <Layout>
+        <Head>
+            <title>About</title>
+        </Head>
         <div className="main">
             <div className="header">
                 <div className={`title ${charm.className}`}>

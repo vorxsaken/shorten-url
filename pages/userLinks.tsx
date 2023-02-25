@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { UseThemeContext } from "@/context/StateProvider";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function UserLinks() {
     const [links, setLinks] = useState<any[]>([]);
@@ -106,6 +107,9 @@ export default function UserLinks() {
 
     return (
         <Layout>
+            <Head>
+                <title>My Links</title>
+            </Head>
             <div className="main">
                 <div className={`header ${charm.className}`}>
                     <div className="title">User Links</div>

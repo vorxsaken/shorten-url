@@ -4,6 +4,7 @@ import Button from '@/components/Button';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import Head from 'next/head';
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -40,6 +41,9 @@ export default function Home() {
 
   return (
     <Layout>
+      <Head>
+        <title>Shorten url</title>
+      </Head>
       <article className='main'>
         <div className={`header ${charm.className}`}>
           <p className='title'>Shorten</p>

@@ -6,6 +6,7 @@ import { MdOutlineContentCopy, MdCheckCircle } from "react-icons/md";
 import { useState } from "react"
 import { QRCode } from 'react-qrcode-logo'
 import { UseThemeContext } from "@/context/StateProvider";
+import Head from "next/head";
 
 export default function SortedLink({ alias }: { alias: string }) {
     const [isCopy, setIsCopy] = useState(false);
@@ -32,6 +33,9 @@ export default function SortedLink({ alias }: { alias: string }) {
 
     return (
         <Layout>
+            <Head>
+                <title>Generated Link</title>
+            </Head>
             <div className="main">
                 <div className={`header ${charm.className}`}>
                     <p className='title'>Generated</p>
