@@ -6,11 +6,13 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 
 export default function Home() {
-  const [url, setUrl] = useState('')
+  const [url, setUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { data: session, status} = useSession();
+  const { data: session } = useSession();
 
   const generateUrl = async () => {
+    setIsLoading(true);
     if (url.length < 1) return;
 
     try {
@@ -24,13 +26,14 @@ export default function Home() {
 
       const generatedUrl = await getGeneratedUrl.json();
 
-      if(getGeneratedUrl.status == 200){
+      if (getGeneratedUrl.status == 200) {
         return router.push(`/sortedLink/${generatedUrl.id}`);
-      } 
-      
+      }
+
       throw new Error(generatedUrl.message);
 
     } catch (err) {
+      setIsLoading(false);
       window.alert(err);
     }
   }
@@ -49,7 +52,7 @@ export default function Home() {
             onChange={(e) => setUrl(e.target.value)}
             type="text"
             placeholder='input your url ...' />
-          <Button onClick={() => generateUrl()}>Generate</Button>
+          <Button loading={isLoading} onClick={() => generateUrl()}>Generate</Button>
         </div>
       </article>
     </Layout>
